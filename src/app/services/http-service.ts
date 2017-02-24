@@ -1,10 +1,9 @@
 //My modified version of the Http service
 
 import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import {Http, Headers, Response} from '@angular/http';
 import {Router} from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 @Injectable()
 export class HttpClient {

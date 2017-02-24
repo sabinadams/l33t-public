@@ -13,7 +13,10 @@ color: #cd637b;
 input:-ms-input-placeholder {  
 color: #cd637b;  
 }
-
+.form-heading {
+	text-align:center;
+	margin-bottom:15px;
+}
 .login-form {
 	margin-top:10%;
 }

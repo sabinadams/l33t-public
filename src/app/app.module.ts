@@ -8,6 +8,8 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home';
 import { LoginPage } from './pages/login/login';
+import { ForgotPasswordPage } from './pages/login/forgotPassword/forgotPassword';
+import { VerifyCodePage } from './pages/login/verifyCode/verifyCode';
 
 //Service Imports....
 import { HttpClient } from './services/http-service';
@@ -30,7 +32,7 @@ import { routing, appRoutingProviders } from './app.routing';
 @NgModule({
   declarations: [
     AppComponent, HomeComponent, LoginPage, FilterPipe, SortPipe, 
-    SafePipe, TimeAgoPipe
+    SafePipe, TimeAgoPipe, ForgotPasswordPage, VerifyCodePage
   ],
   imports: [
     BrowserModule, FormsModule, HttpModule, routing

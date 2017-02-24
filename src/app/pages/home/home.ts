@@ -10,5 +10,10 @@ export class HomeComponent implements OnInit{
 	constructor(private _router: Router){}
 	user = JSON.parse(localStorage.getItem('user'));
 	ngOnInit(){}
+
+	logout(){
+		localStorage.removeItem('user');
+		this._router.navigate(['']);
+	}
 }
 	

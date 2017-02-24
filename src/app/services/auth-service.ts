@@ -1,13 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers, Response} from '@angular/http';
-import { HttpClient } from './http-service';
 import {Router} from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthService {
-  constructor(private http: Http, private _router: Router, private _httpClient: HttpClient) {}
+  constructor(private http: Http, private _router: Router) {}
 
   login(data){
   	return this.http.post('http://localhost:3000/login', data).map((res:Response) => {
@@ -17,6 +16,20 @@ export class AuthService {
   }
 
   register(data){
-  	console.log('Registering...', data);
+  	return this.http.post('http://localhost:3000/register', data).map((res:Response) => {
+        return res.json();
+    });
+  }
+
+  forgotPasswordEmail(email){
+    return this.http.post('http://localhost:3000/forgotpasswordemail', { email: email }).map((res:Response) => {
+        return res.json();
+    });
+  }
+
+  forgotPasswordChangePassword(data){
+    return this.http.post('http://localhost:3000/forgotpasschangepass', { data: data }).map((res:Response) => {
+        return res.json();
+    });
   }
 }

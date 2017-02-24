@@ -9,6 +9,9 @@ declare var $: any;
 export class LoginPage implements OnInit{
 	constructor(private _router: Router, private _authService: AuthService){}
 	errorMessage = "";
+	loading = false;
+	completeLogin = false;
+	completeRegister = false;
 	login_form = {
 		username: '',
 		password: '',
@@ -41,16 +44,54 @@ export class LoginPage implements OnInit{
 		});
 	}
 
+	checkLogin(){
+		this.completeLogin = (this.login_form.username.length > 0 && this.login_form.password.length > 0) ? true : false;
+	}
 
+	checkRegister(){
+		this.completeRegister = (this.create_account_form.username.length > 0 && this.create_account_form.email.length > 0 && this.create_account_form.password.length > 0 && this.create_account_form.password_confirm.length > 0) ? true : false;
+	}
 	login() {
+		this.loading = true;
 		if(this.login_form.password.length > 0 && this.login_form.username.length > 0){
 			localStorage.removeItem('user');
 			this._authService.login(this.login_form).subscribe(res => {
 				if(res.status == 200){
-					alert(`Successful Login. Assigned the token: ${res.user.token}`);
 					localStorage.setItem('user',JSON.stringify(res.user));
 					this._router.navigate(['home']);
 				} else {
+					this.loading = false;
+					this.errorMessage = res.error;
+					setTimeout(() => {
+						this.errorMessage = "";
+					}, 4000);
+				}
+			});
+		} else {
+			this.loading = false;
+			this.errorMessage = 'Missing email or password.';
+			setTimeout(() => {
+				this.errorMessage = "";
+			}, 4000);
+
+		}
+	}
+
+	register() {
+		this.loading = true;
+		let data = this.create_account_form;
+		if(data.username.length > 0 
+			&& data.email.length > 0 
+			&& data.password.length > 0 
+			&& (data.password_confirm.length > 0 
+				&& data.password_confirm == data.password)
+		) {
+			this._authService.register(this.create_account_form).subscribe(res => {
+				if(res.status == 200){
+					localStorage.setItem('user',JSON.stringify(res.user));
+					this._router.navigate(['home']);
+				} else {
+					this.loading = false;
 					this.errorMessage = res.error;
 					setTimeout(() => {
 						this.errorMessage = "";
@@ -58,10 +99,15 @@ export class LoginPage implements OnInit{
 				}
 			});
 		} else {
-			this.errorMessage = 'Missing email or password.';
+			this.loading = false;
+			this.errorMessage = "Please fill out all fields and make sure the password confirm input matches the password provided.";
 			setTimeout(() => {
 				this.errorMessage = "";
-			}, 4000)
+			}, 4000);
 		}
 	}	
+
+	gotoForgotPassword(){
+		this._router.navigate(['/forgotpassword']);
+	}
 }
