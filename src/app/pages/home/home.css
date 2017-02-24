@@ -1,0 +1,17 @@
+.btn-logout {
+	background-color: #a2054b;
+    outline: none;
+    color: #fff;
+    font-size: 12px;
+    height: auto;
+    font-weight: normal;
+    text-transform: uppercase;
+    border-color: rgba(76, 4, 36, 0.18);
+    box-shadow: 0 0 5px #000;
+}
+.btn-logout:hover,
+.btn-logout:focus {
+	color: #fff;
+	background-color: #8e0642;
+}
+	
